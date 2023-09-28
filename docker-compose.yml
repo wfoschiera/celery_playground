@@ -16,11 +16,7 @@ services:
     image: "rabbitmq:3.9-management-alpine"
     container_name: rabbitmq
     volumes:
-      - ./docker/compose/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
       - rabbit-data:/var/lib/rabbitmq
-    environment:
-      RABBITMQ_DEFAULT_USER: user_pg
-      RABBITMQ_DEFAULT_PASS: pass_pg
     ports:
       - "5672:5672"
       - "15672:15672"  # Web UI port
