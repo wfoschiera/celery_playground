@@ -56,3 +56,4 @@ runserver= "python manage.py runserver 0.0.0.0:8000"
 runcelery= "celery -A django_celery_pg worker -l INFO"
 dkup = "docker compose up -d"
 dkdown = "docker compose down"
+set_rabbit_permissions = 'rabbitmqctl set_permissions -p / guest_user ".*" ".*" ".*"'
