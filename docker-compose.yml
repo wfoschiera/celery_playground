@@ -1,0 +1,58 @@
+version: '3'
+services:
+
+  postgres:
+    image: "postgis/postgis:11-2.5-alpine"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: POSTGRES_DB
+      POSTGRES_USER: USER_DB
+      POSTGRES_PASSWORD: PASS_DB
+    ports:
+      - "5433:5432"
+
+  rabbitmq:
+    image: "rabbitmq:3.9-management-alpine"
+    container_name: rabbitmq
+    volumes:
+      - ./docker/compose/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - rabbit-data:/var/lib/rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: user_pg
+      RABBITMQ_DEFAULT_PASS: pass_pg
+    ports:
+      - "5672:5672"
+      - "15672:15672"  # Web UI port
+
+  redis:
+    image: "redis:6.2.13"
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+
+  web:
+    build:
+      context: .
+    container_name: celery_playground
+    depends_on:
+      - redis
+      - rabbitmq
+    command: bash -c "celery -A celery-pg worker --loglevel=info"
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - BROKER_URL=pyamqp://user_pg:pass_pg@rabbitmq:5672/localhost
+    # Uncomment this if you need to expose a port for your application
+    # ports:
+    #   - "8000:8000"
+
+
+volumes:
+    postgres-data:
+    rabbit-data:
+    redis-data:
+

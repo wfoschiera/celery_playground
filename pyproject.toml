@@ -1,0 +1,55 @@
+[tool.poetry]
+name = "celery-playground"
+version = "0.1.0"
+description = "Advanced Celery Canvas Training Playground"
+authors = ["williamfoschiera <william.foschiera@buser.com.br>"]
+readme = "README.md"
+packages = [{include = "celery_playground"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytest = "^7.4.2"
+celery = "^5.3.4"
+taskipy = "^1.12.0"
+ruff = "^0.0.291"
+black = "^23.9.1"
+pyright = "^1.1.329"
+pytest-cov = "^4.1.0"
+python-decouple = "^3.8"
+ipython = "^8.15.0"
+psycopg2-binary = "2.9.5"
+django = "3.2.12"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+#    "integration",
+]
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning"
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 120
+extend-select  = [
+    "I001",  # unsorted-imports
+    "RUF100",  # unused-noqa
+]
+
+[tool.taskipy.tasks]
+lint = "task lint_ruff && task lint_black"
+lint_black = "echo 'Executando Black...' && black --check --diff ."
+lint_ruff = "echo 'Executando Ruff...' && ruff ."
+format = "ruff --fix . && black ."
+lint_pyright = "echo 'Executando Pyright...' && pyright ."
+test = "pytest -s -x --cov=. -vv"
+post_test = "coverage html"
+runserver= "python manage.py runserver 0.0.0.0:8000"
+runcelery= "celery -A django_celery_pg worker -l INFO"

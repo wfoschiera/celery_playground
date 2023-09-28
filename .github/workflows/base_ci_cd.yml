@@ -1,0 +1,47 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+
+      - name: Install Poetry
+        run: |
+          pip install --upgrade pip
+          pip install poetry
+        env:
+          POETRY_VIRTUALENVS_CREATE: false
+
+      - name: Install project dependencies
+        run: |
+          poetry config virtualenvs.create false
+          poetry install
+        env:
+          POETRY_VIRTUALENVS_CREATE: false
+
+      - name: Build Docker image
+        run: docker build .
+
+      - name: Log in to Docker Hub (if you're using Docker Hub)
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Docker image to registry (if needed)
+        run: docker push your-docker-image-name
+
+      - name: Deploy to Docker Compose
+        run: docker-compose -f docker-compose.yml up -d
+
+      # Add more steps here for testing, linting, etc., as needed
