@@ -9,7 +9,6 @@ packages = [{include = "celery_playground"}]
 [tool.poetry.dependencies]
 python = "^3.11"
 pytest = "^7.4.2"
-celery = "^5.3.4"
 taskipy = "^1.12.0"
 ruff = "^0.0.291"
 black = "^23.9.1"
@@ -19,6 +18,8 @@ python-decouple = "^3.8"
 ipython = "^8.15.0"
 psycopg2-binary = "2.9.5"
 django = "3.2.12"
+celery = "5.3.1"
+redis = "4.1.1"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -53,3 +54,5 @@ test = "pytest -s -x --cov=. -vv"
 post_test = "coverage html"
 runserver= "python manage.py runserver 0.0.0.0:8000"
 runcelery= "celery -A django_celery_pg worker -l INFO"
+dkup = "docker compose up -d"
+dkdown = "docker compose down"
