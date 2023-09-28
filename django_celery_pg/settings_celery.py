@@ -1,10 +1,13 @@
 # import zlib
 #
+import redis
 # import kombu.compression
 from decouple import config
 from django.conf import settings
 
 broker_url = settings.CELERY_BROKER_URL
+result_backend = settings.CELERY_RESULT_BACKEND
+
 task_always_eager = not broker_url
 
 timezone = settings.TIME_ZONE
@@ -19,9 +22,10 @@ task_time_limit = 1790
 result_chord_join_timeout = 60
 result_chord_retry_interval = 5 * 60
 task_annotations = {"*": {"expires": 4 * 24 * 60 * 60}}  # TTL de 4 dias
+
 #
 # # S3 as the result backend
-# result_backend = settings.RESULT_BACKEND
+
 # s3_bucket = settings.S3_BUCKET
 # s3_base_path = settings.S3_BASE_PATH
 # s3_region = settings.S3_REGION

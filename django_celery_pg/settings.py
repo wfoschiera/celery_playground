@@ -30,8 +30,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 CELERY_BROKER_URL = config("CELERY_BROKER_URL", "pyamqp://user_pg:pass_pg@localhost:5672")
-# Application definition
+CELERY_RESULT_BACKEND = config("CELERY_RESULT_BACKEND", "redis://localhost:6379/0")
 
+# Application definition
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
