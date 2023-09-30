@@ -57,4 +57,4 @@ runcelery= "celery -A django_celery_pg worker -l INFO -Q priority,default,common
 dkup = "docker compose up -d"
 dkdown = "docker compose down"
 set_rabbit_permissions = 'rabbitmqctl set_permissions -p / guest_user ".*" ".*" ".*"'
-django_shell = "python manage.py shell_plus --ipython"
+djshell = "python manage.py shell_plus --ipython"
