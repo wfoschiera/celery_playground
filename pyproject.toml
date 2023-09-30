@@ -21,6 +21,7 @@ celery = "5.3.1"
 redis = "4.1.1"
 django-extensions = "^3.2.3"
 pre-commit = "^3.4.0"
+flower = "^2.0.1"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -63,3 +64,4 @@ dkdown = "docker compose down"
 set_rabbit_permissions = 'rabbitmqctl set_permissions -p / guest_user ".*" ".*" ".*"'
 djshell = "python manage.py shell_plus --ipython"
 celerydebug = "telnet localhost"
+flower = "celery -A django_celery_pg flower"
