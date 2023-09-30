@@ -30,8 +30,16 @@ jobs:
           poetry config virtualenvs.create false
           poetry install
 
-      - name: Build Docker image
-        run: docker build .
+      - name: Linter
+        run: |
+          poetry run task lint
+
+      - name: Tests
+        run: |
+          poetry run task test
+
+      # - name: Build Docker image
+        # run: docker build .
 
       # - name: Log in to Docker Hub (if you're using Docker Hub)
       #   run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
@@ -39,7 +47,7 @@ jobs:
       # - name: Push Docker image to registry (if needed)
       #   run: docker push your-docker-image-name
 
-      - name: Deploy to Docker Compose
-        run: docker-compose -f docker-compose.yml up -d
+      # - name: Deploy to Docker Compose
+        # run: docker-compose -f docker-compose.yml up -d
 
       # Add more steps here for testing, linting, etc., as needed
