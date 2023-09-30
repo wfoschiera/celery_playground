@@ -58,3 +58,4 @@ dkup = "docker compose up -d"
 dkdown = "docker compose down"
 set_rabbit_permissions = 'rabbitmqctl set_permissions -p / guest_user ".*" ".*" ".*"'
 djshell = "python manage.py shell_plus --ipython"
+celerydebug = "telnet localhost"
