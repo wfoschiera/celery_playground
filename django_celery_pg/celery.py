@@ -8,27 +8,22 @@ from celery import shared_task
 
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_celery_pg.settings")
-celery_app = Celery("django_celery_pg")
+
+celery_app = Celery("django_celery_pg.celery", include=["demo_app.tasks"])
 celery_app.config_from_object("django_celery_pg.settings_celery")
 celery_app.autodiscover_tasks()
 
-#
-# @app.task(bind=True, ignore_result=True)
-# def debug_task(self):
-#     print(f'Request: {self.request!r}')
-#
-#
-# @shared_task(queue="bp_ping")
-# def ping_task():
-#     return "pong"
-#
-#
-# @after_task_publish.connect
-# def log_task_published(sender, headers, body, routing_key, **kwargs):
-#     if routing_key == "bp_link_trechos_classes":
-#         logger.info("Task published", extra={"task_id": headers["id"], "task_name": sender})
-#
-#
-# @before_task_publish.connect
-# def add_published_timestamp(headers, **kwargs):
-#     headers["timestamp"] = time.time()
+
+# celery_app.conf.task_queues = (
+#     # Definindo uma fila com o nome 'default'
+#     celery_app.Queue('default', celery_app.Exchange('default'), routing_key='default'),
+
+#     # Definindo uma fila qualquer para testes
+#     celery_app.Queue('common', celery_app.Exchange('common'), routing_key='common'),
+
+#     # Definindo uma fila chamada 'priority' com alta prioridade
+#     celery_app.Queue('priority', celery_app.Exchange('priority'), routing_key='priority'),
+# )
+
+# celery_app.conf.task_default_queue = 'default'
+
