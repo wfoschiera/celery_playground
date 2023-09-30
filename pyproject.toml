@@ -20,6 +20,7 @@ psycopg2-binary = "2.9.5"
 django = "3.2.12"
 celery = "5.3.1"
 redis = "4.1.1"
+django-extensions = "^3.2.3"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -53,7 +54,8 @@ lint_pyright = "echo 'Executando Pyright...' && pyright ."
 test = "pytest -s -x --cov=. -vv"
 post_test = "coverage html"
 runserver= "python manage.py runserver 0.0.0.0:8000"
-runcelery= "celery -A django_celery_pg worker -l INFO"
+runcelery= "celery -A django_celery_pg worker -l INFO -Q priority,default,common"
 dkup = "docker compose up -d"
 dkdown = "docker compose down"
 set_rabbit_permissions = 'rabbitmqctl set_permissions -p / guest_user ".*" ".*" ".*"'
+django_shell = "python manage.py shell_plus --ipython"
