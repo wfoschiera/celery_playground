@@ -1,11 +1,7 @@
 from decouple import config
 from django.conf import settings
 
-celery_broker_url = settings.CELERY_BROKER_URL
-result_backend = settings.CELERY_RESULT_BACKEND
-
 # task_always_eager = not celery_broker_url
-
 timezone = settings.TIME_ZONE
 worker_prefetch_multiplier = 1
 worker_proc_alive_timeout = 30.0

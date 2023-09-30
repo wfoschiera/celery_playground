@@ -48,6 +48,18 @@ signature_example()
 >>> demo_app.tasks.add(2, 2)
 ```
 
+## Real-time tasks monitoring using Flower
+[Docs](https://flower.readthedocs.io/en/latest/features.html)
+```bash
+poetry run task flower
+```
+### Flower monitoring:  
+http://localhost:5555/
+
+
+### Prometheus /metrics:  
+http://localhost:5555/metrics
+
 
 __TODOS__:  
 - [ ] Fix CI/CD  
