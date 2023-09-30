@@ -28,23 +28,23 @@ services:
     ports:
       - "6379:6379"
 
-  web:
-    build:
-      context: .
-    container_name: celery_playground
-    depends_on:
-      - redis
-      - rabbitmq
-    command: bash -c "celery -A celery-pg worker --loglevel=info"
-    volumes:
-      - .:/app
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - BROKER_URL=pyamqp://user_pg:pass_pg@rabbitmq:5672/localhost
-    # Uncomment this if you need to expose a port for your application
-    # ports:
-    #   - "8000:8000"
+  # web:
+  #   build:
+  #     context: .
+  #   container_name: celery_playground
+  #   depends_on:
+  #     - redis
+  #     - rabbitmq
+  #   command: bash -c "celery -A celery-pg worker --loglevel=info"
+  #   volumes:
+  #     - .:/app
+  #   environment:
+  #     - REDIS_HOST=redis
+  #     - REDIS_PORT=6379
+  #     - BROKER_URL=pyamqp://user_pg:pass_pg@rabbitmq:5672/localhost
+  #   # Uncomment this if you need to expose a port for your application
+  #   # ports:
+  #   #   - "8000:8000"
 
 
 volumes:
