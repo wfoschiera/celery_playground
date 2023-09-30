@@ -20,6 +20,7 @@ django = "3.2.12"
 celery = "5.3.1"
 redis = "4.1.1"
 django-extensions = "^3.2.3"
+pre-commit = "^3.4.0"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -36,6 +37,9 @@ filterwarnings = [
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
 
 [tool.ruff]
 line-length = 120
@@ -57,4 +61,5 @@ runcelery= "celery -A django_celery_pg worker -l INFO -Q priority,default,common
 dkup = "docker compose up -d"
 dkdown = "docker compose down"
 set_rabbit_permissions = 'rabbitmqctl set_permissions -p / guest_user ".*" ".*" ".*"'
-django_shell = "python manage.py shell_plus --ipython"
+djshell = "python manage.py shell_plus --ipython"
+celerydebug = "telnet localhost"
