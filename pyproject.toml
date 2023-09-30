@@ -4,7 +4,6 @@ version = "0.1.0"
 description = "Advanced Celery Canvas Training Playground"
 authors = ["williamfoschiera <william.foschiera@buser.com.br>"]
 readme = "README.md"
-packages = [{include = "celery_playground"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
